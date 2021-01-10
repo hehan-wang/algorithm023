@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
  * <p>
  * 4.user case
  */
-public class LeetCode242 {
+public class Anagram_242 {
     public static void main(String[] args) {
         System.out.println(isAnagram("anagram", "nagaram"));
         System.out.println(isAnagram("rat", "car"));
