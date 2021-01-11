@@ -30,7 +30,7 @@ public class InOrderTranserval_94 {
             TreeNode curr = root;
             List<Integer> res = new ArrayList<>();
             Deque<TreeNode> stack = new LinkedList<>();
-            while (curr != null || !stack.isEmpty()) {
+            while (curr != null || !stack.isEmpty()) {//终止条件：所有元素出栈且元素都遍历过了
                 while (curr != null) {//先入栈左子树
                     stack.push(curr);
                     curr = curr.left;
