@@ -6,7 +6,6 @@ import java.util.PriorityQueue;
 
 /**
  * 239. 滑动窗口最大值
- * TODO 多种解法待开发
  */
 public class MaxSlidingWindow_239 {
     public static void main(String[] args) {
