@@ -31,6 +31,9 @@ public class ThreeSum_15 {
      * 当nums[i]+nums[j]+nums[k]<0 证明小了 j++
      * 当nums[i]+nums[j]+nums[k]=0 放入结果数组
      * 技巧:使用while把重复数据过掉
+     *
+     * time:O(n2)
+     *
      */
     static class Solution2 {
         public List<List<Integer>> threeSum(int[] nums) {
