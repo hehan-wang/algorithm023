@@ -6,7 +6,11 @@
 
 https://u.geekbang.org/lesson/116?article=262088
 
-1. 递归模板
+1. **重点**
+   1. 不要人肉递归
+   2. 找到最近重复子问题
+   3. 数学归纳法思维
+2. 递归模板
 
 ```java
 public void rec(int level,int max,int param){
@@ -55,3 +59,5 @@ public int devideConquer(Problem problem){
 ## 问题
 
 1. 感觉刷题比较慢、精力跟不上一天也就做3道+。怎么办？
+2. 感觉递归还是没理解透。自己想完全没思路。
+3. 树的递归遍历算是分治么？

@@ -17,8 +17,8 @@ import java.util.List;
 public class InOrderTranserval_94 {
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1, null, new TreeNode(2, new TreeNode(3), null));
-        List<Integer> list = new Solution().inorderTraversal(root);
-//        List<Integer> list = new Solution1().inorderTraversal(root);
+//        List<Integer> list = new Solution().inorderTraversal(root);
+        List<Integer> list = new Solution1().inorderTraversal(root);
         System.out.println(list);
     }
 
@@ -39,7 +39,6 @@ public class InOrderTranserval_94 {
                 res.add(curr.val);
                 curr = curr.right;//迭代右子树
             }
-
             return res;
         }
     }
