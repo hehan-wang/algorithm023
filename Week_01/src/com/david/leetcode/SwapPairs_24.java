@@ -11,8 +11,8 @@ package com.david.leetcode;
 public class SwapPairs_24 {
     public static void main(String[] args) {
         ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
-//        ListNode node = new Solution().swapPairs(head);
-        ListNode node = new Solution1().swapPairs(head);
+        ListNode node = new Solution().swapPairs(head);
+//        ListNode node = new Solution1().swapPairs(head);
         while (node != null) {
             System.out.printf("%s\t", node.val);
             node = node.next;
