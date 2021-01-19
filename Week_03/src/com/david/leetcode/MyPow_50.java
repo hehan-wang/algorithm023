@@ -40,9 +40,9 @@ public class MyPow_50 {
             if (n == 0) return 1;
             //split n=n/2
             //drill down
-            double sub = fastPow(x, n / 2);
+            double sub = fastPow(x, n / 2);//求出上一个子问题
             //merge
-            return n % 2 == 0 ? sub * sub : sub * sub * x;
+            return n % 2 == 0 ? sub * sub : sub * sub * x;//n偶数的话sub*sub 基数补一个x
             //revert states
         }
 

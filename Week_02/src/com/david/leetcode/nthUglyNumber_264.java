@@ -45,7 +45,7 @@ public class nthUglyNumber_264 {
             minHeap.add(1L);
             seen.add(1L);
             for (int i = 0; i < 1690; i++) {
-                Long currUgly = minHeap.poll();//获取当前最大丑数存起来
+                Long currUgly = minHeap.poll();//获取当前最小丑数存起来
                 ugly[i] = currUgly;
                 //计算下个丑数
                 for (int j = 0; j < prime.length; j++) {
