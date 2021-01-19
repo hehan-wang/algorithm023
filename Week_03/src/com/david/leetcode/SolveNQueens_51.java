@@ -19,9 +19,9 @@ public class SolveNQueens_51 {
     static class Solution {
         public List<List<String>> solveNQueens(int n) {
             List<List<String>> res = new ArrayList<>();
-            boolean[] qCol = new boolean[n];//皇后位置
-            boolean[] qDiag1 = new boolean[2 * n];//皇后row-col位置
-            boolean[] qDiag2 = new boolean[2 * n];//皇后row+col位置
+            boolean[] qCol = new boolean[n];//皇后能攻击到的列
+            boolean[] qDiag1 = new boolean[2 * n];//皇后能攻击到的左对角线 row-col位置
+            boolean[] qDiag2 = new boolean[2 * n];//皇后能攻击到的右对角线 row+col位置
             char[][] board = new char[n][n];//存棋盘信息
             for (char[] chars : board) {
                 Arrays.fill(chars, '.');
@@ -33,12 +33,17 @@ public class SolveNQueens_51 {
         private void dfs(char[][] board, List<List<String>> res, int row, int n, boolean[] qCol, boolean[] qDiag1, boolean[] qDiag2) {
             //terminator
             if (row == n) {
-                res.add(display(board));
+                ArrayList<String> solution = new ArrayList<>();
+                for (char[] chars : board) {
+                    solution.add(String.valueOf(chars));
+                }
+                res.add(solution); //1ms
+//                res.add(Arrays.stream(board).map(String::valueOf).collect(Collectors.toList())); //TODO 搞清楚使用lambda慢的原因 使用lambda 4ms，使用原生1ms
                 return;
             }
             for (int col = 0; col < n; col++) {//遍历列
                 //process
-                int diag1 = row - col + n;//存row-col 是因为怕下标越界所以加了n
+                int diag1 = row + n - col;//存row-col 是因为怕下标越界所以加了n
                 int diag2 = row + col;//存row+col
                 if (qCol[col] || qDiag1[diag1] || qDiag2[diag2]) {//如果放不进去往下走
                     continue;
@@ -55,11 +60,6 @@ public class SolveNQueens_51 {
                 qDiag2[diag2] = false;
                 board[row][col] = '.';
             }
-        }
-
-        //每一行一个字符 存到list里 表示整个棋盘
-        private List<String> display(char[][] board) {
-            return Arrays.stream(board).map(String::new).collect(Collectors.toList());
         }
     }
 }
