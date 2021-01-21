@@ -43,7 +43,7 @@ public class Codec_297 {
         }
 
         private TreeNode buildTree(Deque<String> deque) {
-            String rootStr = deque.pop();
+            String rootStr = deque.pop();//从头遍历
             if ("x".endsWith(rootStr)) return null;//x为空节点
             TreeNode root = new TreeNode(Integer.parseInt(rootStr));
             root.left = buildTree(deque);
