@@ -9,9 +9,27 @@ public class MajorityElement_169 {
     public static void main(String[] args) {
         int[] nums = {3, 2, 3};
 //        int i = new Solution().majorityElement(new int[]{3, 2, 3});
-        int i = new Solution1().majorityElement(nums);
+        int i = new Solution2().majorityElement(nums);
         System.out.println(i);
-        System.out.println(Arrays.stream(nums).boxed().collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
+    }
+
+    /**
+     * 摩尔投票法
+     * 由于存在一个数数量>n/2
+     * 一对一抵消最终肯定为﹢
+     */
+    static class Solution2 {
+        public int majorityElement(int[] nums) {
+            int candidate = nums[0];
+            int vote = 0;
+            for (int num : nums) {
+                if (vote == 0) {
+                    candidate = num;
+                }
+                vote += candidate == num ? 1 : -1;
+            }
+            return candidate;
+        }
     }
 
     /**

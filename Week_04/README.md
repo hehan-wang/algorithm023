@@ -44,3 +44,25 @@ public static void dfs(TreeNode root, int level, List<List<Integer>> res) {
 }
 ```
 
+
+
+## BSearch
+
+二分搜索模板
+
+```java
+public int binarySearch(int[] array, int target) {
+  int lo = 0, high = array.length - 1;
+  while (lo <= high) {
+    int mid = lo + (high - lo) >> 1;//防止相加超出上限
+    if (array[mid] == target) return mid;
+    else if (array[mid] > target) high = mid - 1;
+    else lo = mid + 1;
+  }
+  return -1;
+}
+```
+
+* 牛顿迭代求平方根推导过程 x =(x+a/x)/2
+
+  ![image-20210127002225069](https://i.loli.net/2021/01/27/vxGmIhTlW4ePKL9.png)

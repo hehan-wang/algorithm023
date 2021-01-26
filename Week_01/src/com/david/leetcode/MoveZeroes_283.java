@@ -4,7 +4,8 @@ import java.util.Arrays;
 
 public class MoveZeroes_283 {
     public static void main(String[] args) {
-        int[] nums = {0, 1, 0, 3, 12};
+        int[] nums = {1, 0, 0, 3, 12};
+//        int[] nums = {0, 1, 0, 3, 12};
         new Solution().moveZeroes(nums);
         System.out.println(Arrays.toString(nums));
     }
@@ -16,7 +17,7 @@ public class MoveZeroes_283 {
                 if (nums[i] != 0) {//不为0的话交换
                     int n = nums[i];
                     nums[i] = nums[j];
-                    nums[j++] = n;
+                    nums[j++] = n;//遇到不为0 j+1
                 }
             }
         }
