@@ -1,9 +1,6 @@
 package com.david.leetcode;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class FindWords_212 {
     public static void main(String[] args) {
@@ -16,14 +13,60 @@ public class FindWords_212 {
                 {'i', 'f', 'l', 'v'}
         };
         System.out.println(new Solution().findWords(board, words));
+        System.out.println(new Solution1().findWords(board, words));
     }
 
     /**
      * 官方题解写法
      */
     static class Solution1 {
+        static class TrieNode {
+            private Map<Character, TrieNode> children = new HashMap<>();
+            private String word;
+        }
+
+        private int[] dx = {1, -1, 0, 0};
+        private int[] dy = {0, 0, 1, -1};
+        private Set<String> res = new HashSet<>();
+
         public List<String> findWords(char[][] board, String[] words) {
-            return null;
+            //构建trie树
+            TrieNode root = new TrieNode();
+            for (String word : words) {
+                TrieNode curr = root;
+                for (char c : word.toCharArray()) {
+                    if (curr.children.containsKey(c)) {
+                        curr = curr.children.get(c);
+                    } else {
+                        TrieNode child = new TrieNode();
+                        curr.children.put(c, child);
+                        curr = child;
+                    }
+                }
+                curr.word = word;
+            }
+            //dfs
+            for (int i = 0; i < board.length; i++) {
+                for (int j = 0; j < board[0].length; j++) {
+                    dfs(i, j, board, root);
+                }
+            }
+            return new ArrayList<>(res);
+        }
+
+        private void dfs(int i, int j, char[][] board, TrieNode root) {
+            if (i < 0 || j < 0 || i >= board.length || j >= board[0].length || board[i][j] == '#') return;
+            TrieNode node = root.children.get(board[i][j]);
+            if (node == null) return;
+            if (node.word != null) res.add(node.word);
+            char c = board[i][j];
+            board[i][j] = '#';
+            for (int d = 0; d < dx.length; d++) {
+                dfs(i + dx[d], j + dy[d], board, node);
+            }
+            board[i][j] = c;
+            //加着一句优化快很多!!!
+            if (node.children.isEmpty()) root.children.remove(c);
         }
     }
 
