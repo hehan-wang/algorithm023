@@ -1,7 +1,5 @@
-# 学习笔记
-## Trie Tree字典树
-1. 代码模板
-```java
+package com.david.leetcode;
+
 class Trie {
     private boolean isEnd;//表示是否是叶子节点
     private Trie[] next;//下标表示26个字母
@@ -52,16 +50,24 @@ class Trie {
         }
         return curr;
     }
+
+    public static void main(String[] args) {
+        Trie trie = new Trie();
+
+        trie.insert("apple");
+        System.out.println(trie.search("apple"));// 返回 true
+        System.out.println(trie.search("app"));// 返回 false
+        System.out.println(trie.startsWith("app"));// 返回 true
+        trie.insert("app");
+        System.out.println(trie.search("app"));// 返回 true
+        System.out.println("---end---");
+    }
 }
-```
-2. 212单词搜索
 
-   1. 使用Trie+dfs+回溯的时间复杂度分析O(4 x m xn)
-
-      m: board.length
-      
-      n: board[0].length
-      
-      由于遍历二维数组board(mxn) 加上每个字符要查上下左右四方向 x4 
-
-## Disjointed Set 并查集
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie obj = new Trie();
+ * obj.insert(word);
+ * boolean param_2 = obj.search(word);
+ * boolean param_3 = obj.startsWith(prefix);
+ */
