@@ -74,7 +74,7 @@ class Trie {
 
       由于遍历二维数组board(mxn) 加上每个字符要查上下左右四方向 x4 然后在向其余三个方向dfs 单词长度l
 
-## Disjointed Set 并查集
+## Disjoint Set 并查集
 
 1. 使用场景
    1. 并查集是一种数据结构

@@ -12,10 +12,10 @@ public class UnionFind {
         }
     }
 
-    public int find(int p) {
+    public int find(int p) {//到顶了
         while (p != parent[p]) {
-            parent[p] = parent[parent[p]];
-            p = parent[p];
+            parent[p] = parent[parent[p]];//爷爷赋给爸爸
+            p = parent[p];//一次迭代两个
         }
         return p;
     }

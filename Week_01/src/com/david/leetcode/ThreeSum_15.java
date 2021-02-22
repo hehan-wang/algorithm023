@@ -90,7 +90,7 @@ public class ThreeSum_15 {
 
     /**
      * 暴力法
-     * O(n3)
+     * O(n^3)
      */
     static class Solution {
         public List<List<Integer>> threeSum(int[] nums) {

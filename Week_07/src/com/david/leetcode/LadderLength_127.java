@@ -1,6 +1,9 @@
 package com.david.leetcode;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 /**
  * 输入：beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]
@@ -15,86 +18,8 @@ import java.util.*;
  */
 public class LadderLength_127 {
     public static void main(String[] args) {
-        int i = new Solution().ladderLength("hit", "cog", List.of("hot", "dot", "dog", "lot", "log", "cog"));
-//        int i = new Solution2().ladderLength("hit", "cog", List.of("hot", "dot", "dog", "lot", "log", "cog"));
+        int i = new Solution0().ladderLength("hit", "cog", List.of("hot", "dot", "dog", "lot", "log", "cog"));
         System.out.println(i);
-    }
-
-    /**
-     * 使用遍历字母代替遍历wordlist 当wordlis大于26的时候遍历的次数会变少
-     * 103ms
-     */
-    static class Solution2 {
-        public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-            Queue<String> queue = new LinkedList<>();
-            HashSet<String> set = new HashSet<>(wordList);
-            HashSet<String> visited = new HashSet<>();
-            queue.add(beginWord);
-            int count = 0;
-            while (!queue.isEmpty()) {
-                count++;
-                int size = queue.size();
-                while (size-- > 0) {
-                    String curr = queue.poll();
-                    char[] chars = curr.toCharArray();
-                    for (int i = 0; i < chars.length; i++) {
-                        char oldChar = chars[i];
-                        for (char j = 'a'; j <= 'z'; j++) {
-                            chars[i] = j;
-                            String newStr = new String(chars);
-                            if (visited.contains(newStr)) continue;
-                            if (!set.contains(newStr)) continue;
-                            if (endWord.equals(newStr)) return count + 1;
-                            visited.add(newStr);
-                            queue.offer(newStr);
-                        }
-                        chars[i] = oldChar;
-                    }
-                }
-            }
-            return 0;
-        }
-    }
-
-
-    /**
-     * 单向bfs 660ms
-     * 每次扫描worldlist 如果有差一个字母的 count++ 并且继续bfs
-     */
-    static class Solution {
-        public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-            Queue<String> queue = new LinkedList<>();//存bfs层级数据
-            boolean[] visited = new boolean[wordList.size()];//存访问过的下标
-            queue.offer(beginWord);//入队第一个元素
-            int idx = wordList.indexOf(beginWord);
-            if (idx > 0) visited[idx] = true;
-            int count = 0;
-            while (!queue.isEmpty()) {
-                count++;//bfs水波纹每一层+1
-                int size = queue.size();//bfs当前层个数
-                while (size-- > 0) {//一定要size--先使用 后-1
-                    String curr = queue.poll();
-                    for (int i = 0; i < wordList.size(); i++) {//遍历字典
-                        if (visited[i]) continue;//访问过返回跳过
-                        String word = wordList.get(i);
-                        if (!diff1(word, curr)) continue;//不是差一个字符跳过
-                        if (endWord.equals(word)) return count + 1;//curr跟word差一个字符且word就是end 直接返回
-                        visited[i] = true;//当前字典访问过
-                        queue.offer(word);//搜索下一层
-                    }
-                }
-            }
-            return 0;
-        }
-
-        //查有没有只有一个字符不同
-        private boolean diff1(String s, String curr) {
-            int diff = 0;
-            for (int i = 0; i < s.length(); i++)
-                if (s.charAt(i) != curr.charAt(i) && ++diff > 1) break;
-            return diff == 1;
-        }
-
     }
 
 
@@ -103,6 +28,10 @@ public class LadderLength_127 {
      * 思路
      * 1.使用两个set 从两个方向搜索 。每次把beginSet替换成短的，endSet 存另一端
      * 2.替换当前每个字符 a-z 代替world list 优化world list太长的时候
+     * 复杂度分析：
+     * l:单词平均长度
+     * time:O(26*l*n)
+     * space:O(n)
      */
     static class Solution0 {
         public int ladderLength(String beginWord, String endWord, List<String> wordList) {
