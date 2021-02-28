@@ -1,8 +1,6 @@
 package com.david.leetcode;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * 239. 滑动窗口最大值
@@ -11,8 +9,30 @@ public class MaxSlidingWindow_239 {
     public static void main(String[] args) {
         int[] nums = {1, 3, -1, -3, 5, 3, 6, 7};
 //        int[] max = new Solution().maxSlidingWindow(nums, 3);
-        int[] max = new Solution1().maxSlidingWindow(nums, 3);
+//        int[] max = new Solution1().maxSlidingWindow(nums, 3);
+        int[] max = new Solution2().maxSlidingWindow(nums, 3);
         System.out.println(Arrays.toString(max));
+    }
+
+    /**
+     * 使用deque
+     * 保证deque 第一个元素为最大值(1.第一个元素超出窗口剔除 2.删除小于当前值的元素)
+     */
+    static class Solution2 {
+        public int[] maxSlidingWindow(int[] nums, int k) {
+            if (nums == null || nums.length == 0 || k == 0 || nums.length < k) return new int[0];
+            int n = nums.length;
+            int[] res = new int[n - k + 1];
+            Deque<Integer> deque = new LinkedList<>();
+            for (int j = 0; j < n; j++) {
+                int i = j + 1 - k;
+                if (i > 0 && !deque.isEmpty() && deque.peekFirst() == nums[i - 1]) deque.removeFirst();
+                while (!deque.isEmpty() && deque.peekLast() < nums[j]) deque.removeLast();
+                deque.addLast(nums[j]);
+                if (i >= 0) res[i] = deque.peekFirst();
+            }
+            return res;
+        }
     }
 
     /**
@@ -51,6 +71,7 @@ public class MaxSlidingWindow_239 {
      * 1.循环数组所有元素
      * 2.当 start=(i-k) >0证明有元素滑出窗口去掉nums[start]
      * 3.当window数量够3个才放入数组
+     * time:O(n*2*logk)
      */
     static class Solution {
         public int[] maxSlidingWindow(int[] nums, int k) {
@@ -60,13 +81,9 @@ public class MaxSlidingWindow_239 {
             PriorityQueue<Integer> heap = new PriorityQueue<>((o1, o2) -> o2 - o1);//大顶堆
             for (int i = 0; i < n; i++) {
                 int start = i - k;//窗口前一个下标
-                if (start >= 0) {
-                    heap.remove(nums[start]);
-                }
+                if (start >= 0) heap.remove(nums[start]);
                 heap.offer(nums[i]);
-                if (heap.size() == k) {
-                    res[i - k + 1] = heap.peek();
-                }
+                if (heap.size() == k) res[i - k + 1] = heap.peek();
             }
             return res;
         }

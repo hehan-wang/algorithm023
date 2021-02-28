@@ -14,9 +14,7 @@ public class SolveNQueens_51 {
     static class Solution {
         public List<List<String>> solveNQueens(int n) {
             List<List<String>> res = new ArrayList<>();
-            boolean[] qCol = new boolean[n];
-            boolean[] qPie = new boolean[2 * n];
-            boolean[] qNa = new boolean[2 * n];
+            boolean[] qCol = new boolean[n], qPie = new boolean[2 * n], qNa = new boolean[2 * n];
             char[][] board = new char[n][n];
             for (char[] row : board) {
                 Arrays.fill(row, '.');
@@ -40,16 +38,12 @@ public class SolveNQueens_51 {
                 int na = col + row;
                 if (qCol[col] || qNa[na] || qPie[pie]) continue;//摆不下跳过
                 //process
-                qCol[col] = true;
-                qNa[na] = true;
-                qPie[pie] = true;
+                qCol[col] = qNa[na] = qPie[pie] = true;
                 board[row][col] = 'Q';
                 //drill down
                 dfs(board, res, row + 1, qCol, qPie, qNa, n);
                 //revert states
-                qCol[col] = false;
-                qNa[na] = false;
-                qPie[pie] = false;
+                qCol[col] = qNa[na] = qPie[pie] = false;
                 board[row][col] = '.';
             }
         }

@@ -5,6 +5,24 @@ public class SolveSudoku_37 {
 
     }
 
+    static class Solution1 {
+
+        public void solveSudoku(char[][] board) {
+            if (board == null || board.length != 9 || board[0].length != 9) return;
+            boolean[][] row = new boolean[9][9], col = new boolean[9][9], box = new boolean[9][9];
+            for (int i = 0; i < board.length; i++) {
+                for (int j = 0; j < board[0].length; j++) {
+                    if (board[i][j] == '.') continue;
+                    int num = board[i][j] - '1';
+                    int k = (i / 3) * 3 + j / 3;
+                    row[i][num] = col[j][num] = box[k][num] = true;
+                }
+            }
+
+        }
+    }
+
+
     /**
      * 思路：
      * 使用 行，列，块 存储 访问过的格子
