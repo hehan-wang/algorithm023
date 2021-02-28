@@ -35,7 +35,7 @@ public class ReversePairs_493 {
             int[] tmp = new int[right - left + 1];
             int i = left, c = left, k = 0;//i存左数组 k存cache下标 c存逆序对个数
             for (int j = mid + 1; j <= right; j++) {//j存右数组下标
-                while (c <= mid && nums[c] < 2 * (long) nums[j]) c++;
+                while (c <= mid && nums[c] <= 2 * (long) nums[j]) c++;
                 while (i <= mid && nums[i] < nums[j]) tmp[k++] = nums[i++];
                 tmp[k++] = nums[j];
                 count += mid - c + 1;//逆序对个数
