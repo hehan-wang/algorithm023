@@ -24,7 +24,12 @@ public class ReversePairs_493 {
             int mid = (left + right) / 2;
             int ret = mergeSort(nums, left, mid) + mergeSort(nums, mid + 1, right);
 
-            // 首先统计下标对的数量
+            /**
+             * 首先统计下标对的数量
+             * i不动 扫描j直到
+             * 由于两边都是升序的
+             * 当nums[i]<=2*nums[j] 此时j-m+1 为该i的逆序对
+             */
             int i = left, j = mid + 1;
             while (i++ <= mid) {
                 while (j <= right && (long) nums[i] > 2 * (long) nums[j]) j++;

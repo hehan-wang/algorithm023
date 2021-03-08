@@ -1,6 +1,6 @@
 package com.david.leetcode;
 
-public class ReverseBits {
+public class ReverseBits_190 {
     public static void main(String[] args) {
 
     }
