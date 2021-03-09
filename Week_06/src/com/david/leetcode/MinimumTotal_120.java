@@ -80,6 +80,7 @@ public class MinimumTotal_120 {
 
     /**
      * dfs 自上而下
+     * 最近子问题：取左边和右边最小值
      * time:O(2^n)
      * space:O(1)
      */
