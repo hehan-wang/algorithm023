@@ -17,6 +17,7 @@ public class MaxSlidingWindow_239 {
     /**
      * 使用deque
      * 保证deque 第一个元素为最大值(1.第一个元素超出窗口剔除 2.删除小于当前值的元素)
+     * time:O(n)
      */
     static class Solution2 {
         public int[] maxSlidingWindow(int[] nums, int k) {

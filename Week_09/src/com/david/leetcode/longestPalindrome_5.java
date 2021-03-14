@@ -8,27 +8,34 @@ package com.david.leetcode;
  */
 public class longestPalindrome_5 {
     public static void main(String[] args) {
+        System.out.println("==================Solution11==========================");
+        System.out.println(new Solution0().longestPalindrome("bb"));
+        System.out.println(new Solution0().longestPalindrome("babad"));
+        System.out.println(new Solution0().longestPalindrome("cbbd"));
+        System.out.println(new Solution0().longestPalindrome("a"));
+        System.out.println(new Solution0().longestPalindrome("bb"));
         System.out.println("==================Solution0==========================");
         System.out.println(new Solution0().longestPalindrome("bb"));
         System.out.println(new Solution0().longestPalindrome("babad"));
         System.out.println(new Solution0().longestPalindrome("cbbd"));
         System.out.println(new Solution0().longestPalindrome("a"));
         System.out.println(new Solution0().longestPalindrome("bb"));
-        System.out.println("==================Solution1==========================");
-        System.out.println(new Solution1().longestPalindrome("bb"));
-        System.out.println(new Solution1().longestPalindrome("babad"));
-        System.out.println(new Solution1().longestPalindrome("cbbd"));
-        System.out.println(new Solution1().longestPalindrome("a"));
-        System.out.println(new Solution1().longestPalindrome("bb"));
-        System.out.println(new Solution1().longestPalindrome("ac"));
-        System.out.println("==================Solution2==========================");
-        System.out.println(new Solution2().longestPalindrome("bb"));
-        System.out.println(new Solution2().longestPalindrome("babad"));
-        System.out.println(new Solution2().longestPalindrome("cbbd"));
-        System.out.println(new Solution2().longestPalindrome("a"));
-        System.out.println(new Solution2().longestPalindrome("bb"));
-        System.out.println(new Solution2().longestPalindrome("ac"));
+//        System.out.println("==================Solution1==========================");
+//        System.out.println(new Solution1().longestPalindrome("bb"));
+//        System.out.println(new Solution1().longestPalindrome("babad"));
+//        System.out.println(new Solution1().longestPalindrome("cbbd"));
+//        System.out.println(new Solution1().longestPalindrome("a"));
+//        System.out.println(new Solution1().longestPalindrome("bb"));
+//        System.out.println(new Solution1().longestPalindrome("ac"));
+//        System.out.println("==================Solution2==========================");
+//        System.out.println(new Solution2().longestPalindrome("bb"));
+//        System.out.println(new Solution2().longestPalindrome("babad"));
+//        System.out.println(new Solution2().longestPalindrome("cbbd"));
+//        System.out.println(new Solution2().longestPalindrome("a"));
+//        System.out.println(new Solution2().longestPalindrome("bb"));
+//        System.out.println(new Solution2().longestPalindrome("ac"));
     }
+
 
     /**
      * 中心扩散法
@@ -58,6 +65,29 @@ public class longestPalindrome_5 {
                 j++;
             }
             return j - i - 1;
+        }
+    }
+
+    /**
+     * dp 超
+     */
+    static class Solution11 {
+        public String longestPalindrome(String s) {
+            if (s == null || s.length() < 2) return s;
+            int begin = 0, maxLength = 1, n = s.length();//begin存第一个下标 maxLength存回文长度
+            boolean[][] dp = new boolean[n][n];
+            char[] chars = s.toCharArray();
+            for (int i = n - 1; i >= 0; i--) {//后后向前
+                for (int j = i; j < n; j++) {//从前向后
+                    dp[i][j] = chars[i] == chars[j] && (j - i < 2 || dp[i + 1][j - 1]);
+
+                    if (dp[i][j] && (j - i + 1 > maxLength)) {
+                        maxLength = j - i + 1;
+                        begin = i;
+                    }
+                }
+            }
+            return s.substring(begin, begin + maxLength);
         }
     }
 
