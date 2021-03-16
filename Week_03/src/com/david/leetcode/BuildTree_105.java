@@ -1,6 +1,5 @@
 package com.david.leetcode;
 
-import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -44,18 +43,18 @@ public class BuildTree_105 {
         public TreeNode buildTree(int[] preorder, int[] inorder) {
             int right = inorder.length - 1;
             inorderIndexMap = IntStream.rangeClosed(0, right).boxed().collect(Collectors.toMap(i -> inorder[i], Function.identity()));//构建中序遍历缓存下标
-            return buildTree(preorder, inorder, 0, right, 0, right);
+            return buildTree(preorder, 0, right, 0);
         }
 
-        public TreeNode buildTree(int[] preorder, int[] inorder, int preorderLeft, int preorderRight, int inorderLeft, int inorderRight) {
+        public TreeNode buildTree(int[] preorder, int preorderLeft, int preorderRight, int inorderLeft) {
             if (preorderLeft > preorderRight) return null;//终止条件两边界相遇
             TreeNode root = new TreeNode(preorder[preorderLeft]);//构建当前节点
             Integer inorderRootIndex = inorderIndexMap.get(preorder[preorderLeft]);//从缓存中获取中序遍历root下标 前序遍历一个元素即为root元素
             int leftTreeSize = inorderRootIndex - inorderLeft;//获取左子树长度
             //分别取中序数组和前序数组 左子树的数组迭代 连接到当前节点左边
-            root.left = buildTree(preorder, inorder, preorderLeft + 1, preorderLeft + leftTreeSize, inorderLeft, inorderRootIndex - 1);
+            root.left = buildTree(preorder, preorderLeft + 1, preorderLeft + leftTreeSize, inorderLeft);
             //分别取中序数组和前序数组 右子树的数组迭代 连接到当前节点左边
-            root.right = buildTree(preorder, inorder, preorderLeft + leftTreeSize + 1, preorderRight, inorderRootIndex + 1, inorderRight);
+            root.right = buildTree(preorder, preorderLeft + leftTreeSize + 1, preorderRight, inorderRootIndex + 1);
             return root;
         }
     }
