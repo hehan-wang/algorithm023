@@ -29,4 +29,16 @@ public class ReverseList_206 {
         }
     }
 
+    /**
+     * 思路：head和后面子链反转 上来直接递归到最后一个元素
+     */
+    static class Solution1 {
+        public ListNode ReverseList(ListNode head) {
+            if (head == null || head.next == null) return head;
+            ListNode newHead = ReverseList(head.next);
+            head.next.next = head;
+            head.next = null;
+            return newHead;
+        }
+    }
 }
