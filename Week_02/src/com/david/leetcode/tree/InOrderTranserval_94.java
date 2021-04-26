@@ -1,12 +1,10 @@
-package com.david.leetcode;
+package com.david.leetcode.tree;
 
 import javax.swing.tree.TreeNode;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
+ * https://leetcode-cn.com/problems/binary-tree-preorder-traversal/solution/leetcodesuan-fa-xiu-lian-dong-hua-yan-shi-xbian-2/
  * 给定一个二叉树的根节点 root ，返回它的 中序 遍历。
  * <p>
  * 示例 1：
@@ -24,14 +22,16 @@ public class InOrderTranserval_94 {
 
     /**
      * 使用栈 跟递归思想一致
+     * 左子树->根->右子树
      */
     static class Solution1 {
         public List<Integer> inorderTraversal(TreeNode root) {
-            TreeNode curr = root;
             List<Integer> res = new ArrayList<>();
+            if (root==null)return res;
             Deque<TreeNode> stack = new LinkedList<>();
+            TreeNode curr = root;
             while (curr != null || !stack.isEmpty()) {//终止条件：所有元素出栈且元素都遍历过了
-                while (curr != null) {//先入栈左子树
+                while (curr != null) {//先入栈左子树 最左节点入队
                     stack.push(curr);
                     curr = curr.left;
                 }

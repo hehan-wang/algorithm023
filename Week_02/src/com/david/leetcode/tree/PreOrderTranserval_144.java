@@ -1,4 +1,4 @@
-package com.david.leetcode;
+package com.david.leetcode.tree;
 
 import java.util.ArrayList;
 import java.util.Deque;
@@ -16,17 +16,31 @@ import java.util.List;
 public class PreOrderTranserval_144 {
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1, null, new TreeNode(2, new TreeNode(3), null));
-        List<Integer> list = new Solution().preorderTraversal(root);
+        List<Integer> list = new Solution1().preorderTraversal(root);
 //        List<Integer> list = new Solution1().preorderTraversal(root);
         System.out.println(list);
     }
 
     /**
      * 使用栈 跟递归思想一致
+     * 根->左子树->右子树
      */
     static class Solution1 {
         public List<Integer> preorderTraversal(TreeNode root) {
-            return null;
+            ArrayList<Integer> res = new ArrayList<>();
+            if (root == null) return res;
+            TreeNode curr = root;
+            LinkedList<TreeNode> stack = new LinkedList<>();
+            while (!stack.isEmpty() || curr != null) {
+                while (curr != null) {
+                    res.add(curr.val);
+                    stack.push(curr);
+                    curr = curr.left;
+                }
+                curr = stack.pop();
+                curr = curr.right;
+            }
+            return res;
         }
     }
 

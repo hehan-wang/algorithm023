@@ -1,6 +1,8 @@
 package com.david.leetcode;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * TODO
@@ -42,6 +44,24 @@ public class Permute_46 {
                 //reverse states 递归调用回来后 回溯状态
                 curr.removeLast();
                 used[i] = false;
+            }
+        }
+    }
+
+    static class Solution2 {
+        public List<List<Integer>> permute(int[] nums) {
+            List<List<Integer>> res = new ArrayList<>();
+            List<Integer> output = Arrays.stream(nums).boxed().collect(Collectors.toList());
+            backtrack(output, 0, nums.length, res);
+            return res;
+        }
+
+        private void backtrack(List<Integer> output, int first, int n, List<List<Integer>> res) {
+            if (first == n) res.add(new ArrayList<>(output));
+            for (int i = first; i < n; i++) {
+                Collections.swap(output, first, i);
+                backtrack(output, first + 1, n, res);
+                Collections.swap(output, first, i);
             }
         }
     }
