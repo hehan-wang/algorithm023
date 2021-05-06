@@ -8,6 +8,9 @@ public class LetterCombinations_17 {
         System.out.println(strings);
     }
 
+    /**
+     * O(3^n)
+     */
     static class Solution {
         Map<Character, String> map = new HashMap<>();
 
