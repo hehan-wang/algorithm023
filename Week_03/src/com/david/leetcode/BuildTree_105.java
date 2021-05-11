@@ -10,7 +10,7 @@ public class BuildTree_105 {
         int[] preorder = {3, 9, 20, 15, 7};
         int[] inorder = {9, 3, 15, 20, 7};
 
-        TreeNode treeNode = new Solution().buildTree(preorder, inorder);
+        TreeNode treeNode = new Solution1().buildTree(preorder, inorder);
         inorder(treeNode);
 
     }
@@ -55,6 +55,28 @@ public class BuildTree_105 {
             root.left = buildTree(preorder, preorderLeft + 1, preorderLeft + leftTreeSize, inorderLeft);
             //分别取中序数组和前序数组 右子树的数组迭代 连接到当前节点左边
             root.right = buildTree(preorder, preorderLeft + leftTreeSize + 1, preorderRight, inorderRootIndex + 1);
+            return root;
+        }
+    }
+
+    static class Solution1 {
+        Map<Integer, Integer> inorderVal2Index;
+
+        public TreeNode buildTree(int[] preorder, int[] inorder) {
+            int n = preorder.length - 1;
+            inorderVal2Index = IntStream.rangeClosed(0, n).boxed().collect(Collectors.toMap(i -> inorder[i], Function.identity()));//缓存inorder 值和下标的关系避免每次遍历
+            return buildTree(preorder, 0, n, 0, n);
+        }
+
+        //构建子树
+        public TreeNode buildTree(int[] preorder, int preLeft, int preRight, int inLeft, int inRight) {
+            if (preLeft > preRight) return null;//到头了构建叶子节点
+            int rootVal = preorder[preLeft];//前序遍历根左右第一个元素为根
+            Integer inorderRootIndex = inorderVal2Index.get(rootVal);
+            int leftCount = inorderRootIndex - inLeft;//左子树的长度
+            TreeNode root = new TreeNode(rootVal);
+            root.left = buildTree(preorder, preLeft + 1, preLeft + leftCount, inLeft, inorderRootIndex);
+            root.right = buildTree(preorder, preLeft + 1 + leftCount, preRight, inorderRootIndex + 1, inRight);
             return root;
         }
     }
