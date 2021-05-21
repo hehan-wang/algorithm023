@@ -73,10 +73,10 @@ public class BinaryHeap {
     private void heapifyUp(int i) {
         int insertValue = heap[i];//取出插入value
         while (i > 0 && insertValue > heap[parent(i)]) {//value>父亲value向上提升
-            heap[i] = heap[parent(i)];//先把父亲值付给自己
+            heap[i] = heap[parent(i)];//先把父亲降到下面
             i = parent(i);//存储要替换位置的下标
         }
-        heap[i] = insertValue;//最后一次性替换
+        heap[i] = insertValue;//最后把i放到应该去的位置
     }
 
     /**
