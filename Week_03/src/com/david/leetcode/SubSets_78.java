@@ -10,8 +10,8 @@ public class SubSets_78 {
     public static void main(String[] args) {
         int[] nums = {1, 2, 3};
 //        List<List<Integer>> res = new Solution().subsets(nums);
-//        List<List<Integer>> res = new Solution1().subsets(nums);
-        List<List<Integer>> res = new Solution2().subsets(nums);
+        List<List<Integer>> res = new Solution1().subsets(nums);
+//        List<List<Integer>> res = new Solution2().subsets(nums);
         System.out.println(res);
     }
 

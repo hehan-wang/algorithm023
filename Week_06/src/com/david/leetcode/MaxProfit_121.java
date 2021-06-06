@@ -41,7 +41,7 @@ public class MaxProfit_121 {
     /**
      * 使用dp
      * k=1
-     * T[i][1][0] = max(T[i - 1][1][0], T[i - 1][1][1] + prices[i])
+     * T[i][1][0] = max(T[i - 1][1][0], T[i - 1][1][1] + prices[i]) = max(0,-Infinity)=0
      * T[i][1][1] = max(T[i - 1][1][1], T[i - 1][0][0] - prices[i]) = max(T[i - 1][1][1], -prices[i])
      * k降维掉了
      * time:O(n)
