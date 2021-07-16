@@ -63,6 +63,34 @@ public int binarySearch(int[] array, int target) {
 }
 ```
 
+求上边界
+
+```java
+public int search(int[] nums, int t) {
+    int n = nums.length, left = 0, right = n - 1;
+    while (left < right) {
+        int mid = left + right + 1 >> 1;
+        if (nums[mid] <= t) left = mid;
+        else right = mid - 1;
+    }
+    return right;
+}
+```
+
+求下边界
+
+```java
+public int search(int[] nums, int t) {
+    int n = nums.length, left = 0, right = n - 1;
+    while (left < right) {
+        int mid = left + right >> 1;
+        if (nums[mid] >= t) right = mid;
+        else left = mid + 1;
+    }
+    return right;
+}
+```
+
 * 牛顿迭代求平方根推导过程 x =(x+a/x)/2
 
   ![image-20210127002225069](https://i.loli.net/2021/01/27/vxGmIhTlW4ePKL9.png)
